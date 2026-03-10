@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOAMI // SOCKET.KILL</title>
+    <meta name="description" content="EVE Online character lookup — Socket.Kill">
+    <meta property="og:title" content="WHOAMI // SOCKET.KILL">
+    <meta property="og:site_name" content="Socket.Kill">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+   
+</head>
+<body>
+
+    <!-- SEARCH SCREEN -->
+    <div id="search-screen">
+        <div class="terminal-header">
+            <div class="logo">SOCKET.KILL // NEW EDEN IDENTITY SYSTEM</div>
+            <h1>WHOAMI</h1>
+            <div class="tagline">CHARACTER IDENTIFICATION TERMINAL</div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-prompt">ENTER CAPSULEER DESIGNATION:</div>
+            <div class="search-row">
+                <span class="search-prefix">&gt;_</span>
+                <input type="text" id="search-input" placeholder="character name..." autocomplete="off" spellcheck="false">
+                <button id="search-btn">QUERY</button>
+            </div>
+            <div id="search-error"></div>
+        </div>
+
+        <div class="search-footer">
+            <a href="https://socketkill.com">SOCKET.KILL</a>
+            &nbsp;//&nbsp;
+            <a href="https://about.socketkill.com">ABOUT</a>
+        </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading">QUERYING NEW EDEN RECORDS...</div>
+
+    <!-- PROFILE SCREEN -->
+    <div id="profile-screen">
+        <div class="profile-nav">
+            <a id="back-btn">[ &lt; BACK ]</a>
+            &nbsp;//&nbsp;
+            SOCKET.KILL IDENTITY TERMINAL
+        </div>
+
+        <div class="profile-layout">
+            <!-- LEFT: Data -->
+            <div class="profile-data">
+                <div class="char-name" id="char-name">—</div>
+
+                <div class="data-block">
+                    <div class="data-label">Character ID</div>
+                    <div class="data-value" id="char-id">—</div>
+                </div>
+
+                <div class="data-block">
+                    <div class="data-label">Corporation</div>
+                    <div class="data-value" id="char-corp">—</div>
+                </div>
+
+                <div class="data-block">
+                    <div class="data-label">Alliance</div>
+                    <div class="data-value" id="char-alliance">—</div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="history-label">CORPORATION HISTORY</div>
+                <div id="corp-history"></div>
+            </div>
+
+            <!-- RIGHT: Portrait -->
+            <div class="profile-portrait">
+                <img id="char-portrait" src="" alt="Character Portrait">
+                <div class="portrait-corp-logos">
+                    <img id="corp-logo" src="" alt="Corporation Logo">
+                    <img id="alliance-logo" src="" alt="Alliance Logo" style="display:none">
+                </div>
+                <div class="portrait-links">
+                    <a id="zkill-link" href="#" target="_blank">ZKILLBOARD</a>
+                    <a id="sk-link" href="#" target="_blank">SOCKET.KILL FEED</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="query.js" defer></script>
+</body>
+</html>
