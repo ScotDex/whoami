@@ -10,6 +10,10 @@ async function searchCharacter(name) {
     return data.id;
 }
 
+function generateGuid() {
+    return crypto.randomUUID();
+}
+
 async function getCharacterInfo(id) {
     const res = await fetch(`${ESI}/characters/${id}/`);
     if (!res.ok) throw new Error('Character lookup failed');
@@ -139,7 +143,8 @@ document.getElementById('search-input').addEventListener('keydown', (e) => {
 document.getElementById('back-btn').addEventListener('click', () => {
     setVisible('search');
     document.title = 'WHOAMI // SOCKET.KILL';
-    history.pushState({}, '', window.location.pathname);
+    const guid = crypto.randomUUID();
+    history.pushState({ charId, guid}, '', `?id=${guid}&q=${encodeURIComponent(name)}`);
 });
 
 // Check for ?q= on load
