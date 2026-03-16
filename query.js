@@ -1,26 +1,6 @@
 const SK_API = 'https://socketkill.com/api';
 const ESI = 'https://esi.evetech.net/latest';
 const ESI_IMG = 'https://images.evetech.net';
-const R2_CACHE = 'https://pub-54580f519be4427b807b3e5e733fcb16.r2.dev/esi_cache.json';
-
-let cache = null;
-
-// Load R2 cache on page load
-async function loadCache() {
-    try {
-        const res = await fetch(R2_CACHE);
-        if (res.ok) cache = await res.json();
-    } catch (e) {
-        // Cache unavailable — fall back to ESI only
-    }
-}
-
-function resolveFromCache(category, id) {
-    if (!cache || !cache[category]) return null;
-    return cache[category][String(id)] || null;
-}
-
-
 
 async function searchCharacter(name) {
     const res = await fetch(`${SK_API}/character/search/${encodeURIComponent(name)}`);
