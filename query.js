@@ -79,7 +79,7 @@ async function lookup(name) {
     try {
         const charId = await searchCharacter(name);
         const info = await getCharacterInfo(charId);
-        const history = await getCorpHistory(charId);
+        const corpHistory = await getCorpHistory(charId);
 
         // Resolve corp and alliance names
         const corpName = await resolveName('corporations', info.corporation_id, '/corporations');
@@ -112,7 +112,7 @@ async function lookup(name) {
         // Corp history
         const historyEl = document.getElementById('corp-history');
         historyEl.innerHTML = '';
-        for (const entry of history.slice(0, 20)) {
+        for (const entry of corpHistory.slice(0, 20)) {
             const cName = await resolveName('corporations', entry.corporation_id, '/corporations');
             const div = document.createElement('div');
             div.className = 'history-entry';
