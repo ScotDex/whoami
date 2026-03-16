@@ -1,3 +1,4 @@
+const SK_API = 'https://socketkill.com/api';
 const ESI = 'https://esi.evetech.net/latest';
 const ESI_IMG = 'https://images.evetech.net';
 const R2_CACHE = 'https://pub-54580f519be4427b807b3e5e733fcb16.r2.dev/esi_cache.json';
@@ -19,12 +20,14 @@ function resolveFromCache(category, id) {
     return cache[category][String(id)] || null;
 }
 
+
+
 async function searchCharacter(name) {
-    const res = await fetch(`${ESI}/search/?categories=character&search=${encodeURIComponent(name)}&strict=false`);
-    if (!res.ok) throw new Error('Search failed');
+    const res = await fetch(`${SK_API}/character/search/${encodeURIComponent(name)}`);
+    if (!res.ok) throw new Error('Character not found');
     const data = await res.json();
-    if (!data.character || data.character.length === 0) throw new Error('Character not found');
-    return data.character[0];
+    if (!data.id) throw new Error('Character not found');
+    return data.id;
 }
 
 async function getCharacterInfo(id) {
@@ -39,18 +42,21 @@ async function getCorpHistory(id) {
     return res.json();
 }
 
-async function resolveName(category, id, esiPath) {
-    const cached = resolveFromCache(category, id);
-    if (cached) return cached;
+async function resolveName(category, id) {
     try {
-        const res = await fetch(`${ESI}${esiPath}/${id}/`);
+        if (category === 'corporations') {
+            const res = await fetch(`${SK_API}/corporation/${id}`);
+            const data = await res.json();
+            return data.name || 'Unknown';
+        }
+        // Alliances not in SK API yet — fall back to ESI directly
+        const res = await fetch(`${ESI}/alliances/${id}/`);
         const data = await res.json();
         return data.name || 'Unknown';
     } catch {
         return 'Unknown';
     }
 }
-
 function formatDate(dateStr) {
     if (!dateStr) return '';
     return dateStr.replace('T', ' ').substring(0, 16);
